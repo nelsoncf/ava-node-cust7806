@@ -6,15 +6,17 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node main.js",
-    "start-w": "set CDC_PORT=3001 && node main.js",
-    "start-dev": "set CDC_PORT=3001 && nodemon main.js"
+    "start-w": "node main.js",
+    "start-dev": "nodemon main.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^6.0.0",
     "ejs": "^2.6.1",
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "mysql": "^2.16.0"
   },
   "devDependencies": {
     "nodemon": "^1.18.2"
