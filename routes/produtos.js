@@ -13,6 +13,18 @@ function pegaLivros(conexao){
     })
 }   
 
+function salvaLivro(conexao, livro){
+    return new Promise( (resolve, reject) => {
+        conexao.query('INSERT INTO livros SET ?', livro, (err) => {
+            if(!err){
+                resolve()
+            } else {
+                reject(err)
+            }
+        })
+    })
+}   
+
 module.exports = function (server) {
     server.get('/produtos', async function(request, response){
     
@@ -44,7 +56,16 @@ module.exports = function (server) {
 
         try{
             await req.asyncValidationErrors()
-            res.redirect('/produtos')
+
+            var conexao = await connectionFactory.getConnection()
+          
+            try {
+                await salvaLivro(conexao, livro)
+                res.redirect('/produtos')
+            } catch(erroDB){
+                res.send(erroDB)
+            }
+
         } catch(validationErrors) {
             res.render('produtos/form.ejs', {
                 validationErrors
